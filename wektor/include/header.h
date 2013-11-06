@@ -4,13 +4,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define MAKS_ROZMIAR 10
+#define MAKS_ROZMIAR 5
 
 typedef struct
 {
     double *tablica;
     int rozmiar; //aktualny rozmiar, NIE MAKSYMALNY
-    int pozycja; //aktualna pozycja
+    int pozycja; //wskazuje na PUSTY element tablicy
 } wektor;
 
 void init_wektor(wektor *wek);
@@ -23,15 +23,17 @@ double at(wektor *wek, int pos); //zwróć element na danej pozycji
 
 void push(wektor *wek, double t)
 {
-    wek->rozmiar *= 1.5;
-    if (++wek->pozycja == wek->rozmiar) //zwiększ rozmiar tablicy
-        wek->tablica = realloc(wek->tablica, sizeof(double) * wek->rozmiar);
-    wek->tablica[wek->pozycja] = t;
+    if (wek->pozycja == wek->rozmiar) //zwiększ rozmiar tablicy
+    {
+        wek->rozmiar *= 1.5;
+        wek->tablica = realloc(wek->tablica, sizeof(double) * (wek->rozmiar));
+    }
+    wek->tablica[wek->pozycja++] = t;
 }
 
 double pop(wektor *wek)
 {
-    return wek->tablica[wek->pozycja--];
+    return wek->tablica[--wek->pozycja];
 }
 
 void init_wektor(wektor *wek)
