@@ -1,8 +1,11 @@
-#include <stdio.h>
+#include "include/header.h"
 
 int main(void)
 {
-    printf("Hello World!\n");
+    wektor *wek = malloc (sizeof (wektor));
+    init_wektor(wek);
+
+    free(w->tablica);
     return 0;
 }
 
