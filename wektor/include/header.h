@@ -2,6 +2,7 @@
 #define HEADER_H
 
 #include <stdio.h>
+#include <stdlib.h>
 
 #define MAKS_ROZMIAR 10
 
@@ -22,13 +23,15 @@ double at(wektor *wek, int pos); //zwróć element na danej pozycji
 
 void push(wektor *wek, double t)
 {
-    if (++pozycja == rozmiar) //zwiększ rozmiar tablicy
-        wek->tablica = realloc(w->tablica, (int)(rozmiar * 1.5));
+    wek->rozmiar *= 1.5;
+    if (++wek->pozycja == wek->rozmiar) //zwiększ rozmiar tablicy
+        wek->tablica = realloc(wek->tablica, sizeof(double) * wek->rozmiar);
+    wek->tablica[wek->pozycja] = t;
 }
 
 double pop(wektor *wek)
 {
-    return wek->tablica[pozycja--];
+    return wek->tablica[wek->pozycja--];
 }
 
 void init_wektor(wektor *wek)

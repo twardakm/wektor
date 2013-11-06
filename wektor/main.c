@@ -5,7 +5,8 @@ int main(void)
     wektor *wek = malloc (sizeof (wektor));
     init_wektor(wek);
 
-    free(w->tablica);
+    free(wek->tablica);
+    free(wek);
     return 0;
 }
 
